@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>אמל"ק — כל החדשות ב-3 שורות</title>
+<meta name="description" content="אמל&quot;ק: כל החדשות החמות ב-3 שורות. ערוץ טלגרם בלי קליקבייט ובלי פרסומות.">
+<meta property="og:title" content="אמל&quot;ק — כל החדשות ב-3 שורות">
+<meta property="og:description" content="ערוץ טלגרם בלי קליקבייט ובלי פרסומות. הצטרפות חינם.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800&family=Assistant:wght@400;600;700&display=swap">
+<style>
+  :root{
+    --bg:#eef2f7; --surface:#ffffff; --fg:#0f1b2d; --muted:#5b6b80;
+    --accent:#229ed9; --accent-strong:#1b86ba;
+    --red:#d81f26; --red-top:#e8252c; --red-bottom:#be0f16;
+    --border:#e3e9f1; --track:#e6ecf3; --ring:rgba(34,158,217,.35);
+    --display:"Rubik","Segoe UI",system-ui,sans-serif;
+    --body:"Assistant","Segoe UI",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0a1120; --surface:#111c30; --fg:#eef3fa; --muted:#93a3b8;
+    --accent:#2aa9e0; --accent-strong:#229ed9; --border:#1d2b43; --track:#1d2b43;
+    --ring:rgba(42,169,224,.4); color-scheme:dark;
+  }}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--fg);font-family:var(--body);direction:rtl;-webkit-font-smoothing:antialiased;
+    min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;
+    padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px))}
+  .card{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--border);border-radius:22px;
+    padding:40px 28px 32px;text-align:center;box-shadow:0 18px 50px -20px rgba(15,27,45,.25)}
+
+  /* לוגו אמל"ק: באנר אדום משופע ושלושה פסים */
+  .logo{display:inline-flex;align-items:stretch;gap:9px;height:52px;direction:ltr}
+  .stripes{display:flex;align-items:center;gap:5px}
+  .stripes i{width:5px;height:44px;background:var(--red);transform:skewX(-14deg);border-radius:1px}
+  .banner{display:flex;align-items:center;padding:0 24px;background:linear-gradient(180deg,var(--red-top),var(--red-bottom));
+    transform:skewX(-14deg);border-radius:3px;box-shadow:0 6px 16px -6px rgba(216,31,38,.5)}
+  .banner b{display:inline-block;transform:skewX(14deg);color:#fff;font-family:var(--display);font-weight:800;font-size:31px;letter-spacing:-.5px}
+
+  .msg{margin-top:26px;font-family:var(--display);font-size:1.45rem;font-weight:800;line-height:1.35}
+  .timer{display:block;margin-top:16px;font-family:var(--display);font-size:5rem;font-weight:800;line-height:1;color:var(--red);font-variant-numeric:tabular-nums;direction:ltr}
+  .bar{height:12px;border-radius:999px;background:var(--track);margin:24px auto 0;max-width:320px;overflow:hidden}
+  .bar i{display:block;height:100%;width:100%;background:var(--accent);border-radius:999px;transform-origin:right center;transform:scaleX(0);animation:load 5s linear forwards}
+  .loading{margin-top:10px;font-size:1rem;font-weight:600;color:var(--muted)}
+  .done .bar i{animation:none;transform:scaleX(1)}
+  .done .timer,.done .loading{display:none}
+  @keyframes load{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+  .cta{display:none;align-items:center;justify-content:center;gap:11px;width:100%;margin-top:26px;background:var(--accent);color:#fff;
+    font-family:var(--display);font-weight:700;font-size:1.15rem;text-decoration:none;padding:17px 20px;border-radius:15px;box-shadow:0 10px 24px -8px var(--ring)}
+  .cta:active{transform:translateY(1px)}
+  .cta svg{flex:none}
+  .done .cta{display:flex}
+</style>
+</head>
+<body>
+<main class="card" id="box">
+  <div class="logo" aria-label='אמל"ק'>
+    <span class="stripes" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="banner"><b>אמל"ק</b></span>
+  </div>
+  <p class="msg" id="msg" role="status" aria-live="polite">5 שניות ואנחנו מעבירים אתכם לערוץ הטלגרם של אמל"ק</p>
+  <span class="timer" id="timer" aria-hidden="true">0:05</span>
+  <div class="bar"><i></i></div>
+  <p class="loading">בטעינה...</p>
+  <a class="cta" href="https://t.me/AMLAKNEWSIL" rel="noopener">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M21.9 4.3 18.6 20c-.25 1.1-.9 1.37-1.83.86l-5.05-3.72-2.44 2.35c-.27.27-.5.5-1 .5l.36-5.1 9.3-8.4c.4-.36-.09-.56-.63-.2L5.49 13.3l-4.95-1.55c-1.08-.34-1.1-1.08.23-1.6l19.35-7.46c.9-.33 1.68.2 1.38 1.61z"/></svg>
+    מעבר לערוץ בטלגרם
+  </a>
+</main>
+<script>
+(function(){
+  var TG='https://t.me/AMLAKNEWSIL';
+  var box=document.getElementById('box'), timer=document.getElementById('timer'), msg=document.getElementById('msg');
+  if(!box||!timer||!msg) return;
+  var KEY='tg_redirected', already=false;
+  try{ already=sessionStorage.getItem(KEY)==='1'; }catch(e){}
+  /* מצב סיום: הטיימר נעלם ומופיע כפתור, למקרה שההעברה לא קרתה */
+  function stop(text){ box.className='card done'; msg.textContent=text; }
+  /* מי שכבר הועבר וחזר לדף לא מועבר שוב, כדי שלא ייתקע בלולאה */
+  if(already){ stop('לא עברתם? לחצו על הכפתור'); return; }
+  var n=5;
+  var tick=setInterval(function(){
+    n--;
+    timer.textContent='0:0'+Math.max(n,0);
+    if(n>0) return;
+    clearInterval(tick);
+    try{ sessionStorage.setItem(KEY,'1'); }catch(e){}
+    stop('מעבירים אתכם לערוץ הטלגרם…');
+    window.location.href=TG;
+  },1000);
+  window.addEventListener('pageshow',function(ev){
+    if(ev.persisted){ clearInterval(tick); stop('לא עברתם? לחצו על הכפתור'); }
+  });
+})();
+</script>
+</body>
+</html>
